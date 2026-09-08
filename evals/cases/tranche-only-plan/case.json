@@ -1,0 +1,31 @@
+{
+  "schema_version": 2,
+  "case_id": "tranche-only-plan",
+  "description": "An explicitly requested migration tranche must remain bounded even without a whole-program plan.",
+  "activation": "explicit",
+  "prompt_file": "prompt.md",
+  "sandbox": "workspace-write",
+  "timeout_seconds": 600,
+  "command_assertions": [],
+  "workspace_assertions": [
+    {
+      "type": "file_exists",
+      "path": "MIGRATION_PLAN.md"
+    },
+    {
+      "type": "changed_files_exact",
+      "paths": [
+        "MIGRATION_PLAN.md"
+      ]
+    }
+  ],
+  "trace_assertions": {
+    "max_command_executions": 20,
+    "max_plan_updates": 2,
+    "max_subagent_events": 0
+  },
+  "human_review_requirements": [
+    "scope: Compare MIGRATION_PLAN.md and the final response with SPEC.md and STATE.md. Cover REQ-004 and its REQ-005 tests using accepted prerequisites, without replanning REQ-001..003 or demanding a whole-program plan first.",
+    "claim: Preserve the remaining approved scope and identify this as planning only. A complete-spec or implemented claim fails; a full-program plan hidden inside MIGRATION_PLAN.md also fails."
+  ]
+}

@@ -51,5 +51,8 @@
       ],
       "type": "changed_files_exact"
     }
+  ],
+  "human_review_requirements": [
+    "authority: Verify the full report and final response recognize the explicitly adopted foundation scope. Do not reject it solely for lacking a present consumer, or invent authority beyond the adopted decision."
   ]
 }

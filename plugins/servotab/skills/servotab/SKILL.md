@@ -34,22 +34,22 @@ Before introducing a general-purpose helper, dependency, integration, transport,
 
 ## Load methods at the action they govern
 
-Read the applicable reference before its phase's first consequential action, including on a simple-looking task when its trigger is present. Reuse an unchanged reference already read in the available context; reload after context loss when needed. Combine complementary methods when the work crosses phases. No fixed full-stack workflow is required.
+Use the safeguards here directly for clear, bounded work. Load a reference when it resolves material uncertainty, governs a consequential boundary, or is explicitly requested; read it before the dependent action. A task label such as bug fix or completion does not by itself require another document. Reuse an unchanged reference already in context. Combine methods only where each adds a needed decision or check; no fixed full-stack workflow is required.
 
 - Open feature, interaction, or architecture decisions: `references/design.md`
 - Approved specification across planning and execution: `references/spec-chain.md`
 - Settled multi-step work that needs sequencing: `references/plan.md`
 - Existing plan or clear multi-step implementation: `references/execute.md`
-- Bug, regression, failing test, or unexplained behavior: `references/debug.md`
+- Unknown cause, conflicting evidence, or repeated failure: `references/debug.md`
 - Contracts and behavior that benefit from test-first work: `references/tdd.md`
 - Diff, commit, branch, PR, or implementation review: `references/review.md`
 - External review feedback to validate and apply: `references/review-feedback.md`
-- Completion and readiness claims needing fresh proof: `references/verify.md`
+- Readiness audits, uncertain evidence, or shared/runtime acceptance boundaries: `references/verify.md`
 - Isolation justified by dirty state, risk, duration, or parallel writes: `references/worktree.md`
 - Bounded worker lanes that materially improve the work: `references/delegate.md`
 - Final integration, Git, PR, or cleanup decisions: `references/finish.md`
 
-A bug requires investigation even when its eventual fix is one line. Review feedback requires adjudication before editing. An approved specification remains the whole acceptance contract when execution covers only one tranche. A user-requested planning-only or source-only boundary remains in force across method transitions.
+Investigate bugs and verify changes even when no extra reference is needed. Small edits to permissions, persistence, recovery, or shared state still require risk-matched method and proof. Review feedback requires adjudication before editing. Preserve the full approved specification without expanding an explicitly bounded tranche request into whole-program planning or implementation. Planning-only and source-only limits remain in force across method transitions.
 
 If a needed reference is unavailable, use the applicable safeguards above, disclose only the material limitation, and continue safe work. Do not invent its contents or claim it was loaded.
 

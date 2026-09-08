@@ -66,5 +66,9 @@
       ],
       "type": "changed_files_exact"
     }
+  ],
+  "human_review_requirements": [
+    "reasoning: Compare every SR disposition and its reasoning to REVIEW_CASES.md. Preserve SR-01 as the clean control; identify the missing export operation and weak gateway evidence; separate SR-06 trigger likelihood from concrete conditional impact. Correct labels with opposite reasoning fail.",
+    "claim: Read the entire REVIEW.md and final response. Reject an all-clear or ready-to-ship conclusion that erases the valid findings, and reject invented production observations."
   ]
 }

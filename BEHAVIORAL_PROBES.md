@@ -2,7 +2,7 @@
 
 这些 probes 用来观察 router 是否正确触发、按需读取 reference，并保持小任务轻量。它们包含正例和负例；不要只测“会不会用”，还要测“该沉默时会不会沉默”。
 
-当前十一个 high-signal cases 已成为 `evals/cases/` 下的 executable canaries；用法、artifact contract 与 resume 语义见 [`evals/README.md`](evals/README.md)。本文件仍保留更广的人工 behavior seed set，不要求每次 release 全量跑 model。
+当前十三个 high-signal cases 已成为 `evals/cases/` 下的 executable canaries；用法、artifact contract 与 resume 语义见 [`evals/README.md`](evals/README.md)。本文件仍保留更广的人工 behavior seed set，不要求每次 release 全量跑 model。
 
 每轮记录：
 
@@ -47,7 +47,7 @@ Expected:
 - 一个 active hypothesis
 - regression test 在可行时建立 red evidence
 - 修复 source invariant
-- 若共享边界扩大，后期才读取 `verify.md`
+- 若共享边界扩大或验收证据存在不确定性，后期读取 `verify.md`；普通 focused check 本身不要求额外加载
 - 不做无关 aggregator refactor
 
 ## Probe 3 — UI polish, no forced TDD
@@ -515,3 +515,19 @@ The following are manual observation seeds, not execution receipts or new mandat
 **Review closure.** Supply one reproducible blocker, one disproved claim, and one explicitly deferred non-blocker against a final revision. Observe whether each gets an evidence-backed disposition without rewriting the accepted scope or manufacturing another review loop.
 
 **Authorized foundation.** Pair the existing adopted-foundation case with an otherwise identical unapproved infrastructure proposal. The agent must preserve the explicit authorization in the former and avoid inventing it in the latter. The router's 0.6.1 wording clarifies this distinction; existing fixture records are not new model outcomes.
+
+## Bounded tranche and complete-delivery controls
+
+`tranche-only-plan` is an explicit leaf-entry control: an accepted migration tranche
+without a whole-program plan must remain bounded. Inspect the plan contents as well
+as the changed-file set; a full-program plan hidden in one file is still overreach.
+
+`complete-notes` is an implementation control with a short, ordinary prompt. Its
+independent command starts fresh CLI processes to test persistence and consumers,
+then exercises blank rejection, legacy migration, rollback preservation, repeated
+writes and malformed/conflicting state. A plan, add-only CLI or missing migration
+must fail. It does not establish concurrency, crash consistency or real-host behavior.
+
+For all cases with `human_review_requirements`, a Field Lab automatic pass is only
+provisional. Follow [behavior acceptance](evals/acceptance.md); do not replace semantic
+judgment with reference-read counts or presence of expected words.

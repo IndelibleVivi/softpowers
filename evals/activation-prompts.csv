@@ -32,3 +32,6 @@ negative-abstract-license-law,false,none,"只解释版权制度为什么区分�
 explicit-debug,true,debug,"$debug 复现并修复这个状态 bug。"
 explicit-review,true,review,"$review 审查当前 diff。"
 explicit-spec-chain,true,spec-chain,"$spec-chain 按这份 approved spec 建立完整实现计划；当前 tranche 只能挂在完整计划下面。"
+implicit-local-known-fix,true,none,"把已经定位的纯本地格式化错误修好，运行现有 focused check；没有共享状态或公共接口变化。"
+explicit-tranche-plan,true,plan,"$plan 只为已批准规格的迁移阶段写执行计划；其余阶段已验收，没有总计划，不做全项目重规划。"
+implicit-complete-notes,true,execute,"完成 SPEC.md 里已批准的 Notes CLI，并验证它。"

@@ -18,13 +18,13 @@ Perform one sanity check before editing:
 - Is a dependency missing?
 - Would it cause data loss, a security regression, or a public compatibility break?
 - Has the requested behavior already been implemented differently?
-- If an approved specification exists, does the complete plan still cover all accepted requirements rather than only the current tranche?
+- If the plan claims full-spec scope, does it still cover all accepted requirements? For a bounded tranche, are its applicable requirements and dependencies settled?
 - Does the plan preserve the accepted programme order and trust model under the applicable current authority?
 - What present consumer, current requirement, or explicit authorization justifies any generalized protocol or infrastructure it introduces?
 
 Correct small stale details yourself. Surface a concern only when it changes the approach materially.
 
-When an approved specification governs the work, it remains the scope and acceptance authority throughout execution. A tranche controls what is being worked on now; it does not remove later scope from the complete plan. Repair a partial plan before treating it as the implementation plan, record scope or order changes as explicit deltas, and report tranche completion separately from full-spec completion.
+When an approved specification governs the work, it remains the scope and acceptance authority throughout execution. A tranche controls what is being worked on now; it does not remove later scope from the complete plan. Repair a partial plan that claims full-spec coverage before relying on that claim. An explicitly requested tranche can proceed from its applicable requirements and settled dependencies without first creating a whole-program plan. Record scope or order changes as explicit deltas, and report tranche completion separately from full-spec completion.
 
 ## Complete outcome is the default
 
@@ -35,7 +35,7 @@ Choose the simplest implementation that satisfies the whole contract. Do not tur
 For reference-led work:
 
 - Treat product descriptions and tutorials as inspiration unless the user makes named behavior normative.
-- Treat screenshots and mockups as contracts for the visible details they show, not proof of hidden data or interaction behavior.
+- Treat screenshots and mockups as contracts for visible details only when the user or accepted specification makes them normative. Otherwise use them as reference material. They do not prove hidden data or interaction behavior.
 - Let explicit written instructions, corrections, and accepted specifications override inferred reference details.
 - Inspect the actual repository and adapt the reference to its architecture; do not clone unrelated features merely because they appear in the source.
 
@@ -142,7 +142,7 @@ After all slices:
 - Review the combined diff for scope and accidental changes.
 - Run fresh verification at a scope justified by risk: focused checks for local changes, adjacent checks for shared code, and broad checks for migrations, security, public contracts, or integration readiness.
 - Update documentation only when behavior, interfaces, setup, or durable decisions changed.
-- When executing an approved specification, reconcile the final state against its complete coverage ledger; do not close the specification because one tranche finished.
+- Reconcile the final state against the requested scope. For full-spec work, use the complete coverage ledger. For a bounded tranche, report its outcomes and preserve the status of other accepted scope without creating a whole-program ledger; do not close the specification because one tranche finished.
 - Do not commit, push, merge, or open a PR unless the user requests it or applicable repository/global instructions delegate it.
 
 Report actual results, including checks not run.

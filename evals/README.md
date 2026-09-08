@@ -6,7 +6,7 @@ containment、receipt contract 与 quota gate 已由 standalone Skill Field Lab 
 
 Servotab 继续拥有：
 
-- `cases/`：十一个 repository-owned canaries 及其 fixtures、assertions、expected overlays；
+- `cases/`：十三个 repository-owned canaries 及其 fixtures、assertions、expected overlays；
 - `activation-prompts.csv`：较宽的 routing seed set；
 - [`submission-test-cases.md`](submission-test-cases.md)：把现有 fixtures 整理成
   reviewer-ready 的 5 positive / 3 negative draft；它不是 portal receipt 或 submission claim；
@@ -43,7 +43,9 @@ fieldlab list fieldlab-pack.json
 - `missing-host-test-seam`：material host boundary 缺少 cheap reproducer 时建立一个 bounded local surrogate，同时保留 named-host acceptance。
 - `review-evidence-boundaries`：同一 bounded review corpus 同时保护 clean control、negative-space spec omission、false-green test 与 conditional finding 的 evidence boundary。
 
-新增的 `local-reuse` 检查现有 normalizer 的真实复用；`weak-check` 保留一个原本绿色却不完整的测试，再用独立行为断言揭示缺陷。`scripts/test_behavior_fixtures.py` 只对这两个公开 fixture 做基线失败/expected overlay 通过的控制，并验证新增回归能拒绝旧实现；它不替代 Field Lab，也不执行模型。其他九个 case 的既有证据保持原边界。
+新增的 `local-reuse` 检查现有 normalizer 的真实复用；`weak-check` 保留一个原本绿色却不完整的测试，再用独立行为断言揭示缺陷。`scripts/test_behavior_fixtures.py` 现在对全部十三个 fixture 复放文件/命令断言：基线必须失败，expected overlay 必须通过。`weak-check` 的实际候选测试也必须能拒绝旧实现；同时保留五个审查反例与部分交付控制。它不复放 raw trace，不替代 Field Lab，也不执行模型。
+
+新增 `tranche-only-plan` 覆盖显式 leaf 的阶段范围；`complete-notes` 用独立跨进程检查覆盖完整 CLI、持久化、迁移及失败路径。声明了 `human_review_requirements` 的 case 还必须经过 [最终验收](acceptance.md)：Field Lab 的自动 `pass` 本身不能关闭语义要求。
 
 任何 synthetic live attempt 都必须先生成 saved plan，再显式跨过 Field Lab 的
 `run --live --max-invocations N` gate。Servotab 不把 live model eval 设为普通

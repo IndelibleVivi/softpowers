@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+- Keep explicitly requested tranches bounded without requiring a new whole-program plan; align router loading with risk and uncertainty, and qualify normative screenshot authority.
+- Check actual candidate regressions against the known old defect and protect the complete review-fixture write scope. Preserve five deliberately invalid outputs as adversarial controls.
+- Add explicit tranche-planning and cross-process complete-delivery cases; replay all thirteen fixture oracles in ordinary CI without model calls.
+- Declare semantic review requirements and add a read-only Field Lab receipt/review acceptance check. Deterministic pass, pending review, rejection and accepted evidence remain distinct; no general model-effectiveness claim.
+
+
 ## 0.6.1 — release preparation, 2026-09-05
 
 - Parse passive SVGs as XML, reject malformed/non-finite or active/resource-bearing content, and verify/decode exact 8-bit RGBA PNGs with a pinned maintainer-only Pillow dependency.

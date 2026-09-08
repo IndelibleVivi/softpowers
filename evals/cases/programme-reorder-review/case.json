@@ -51,5 +51,8 @@
       ],
       "type": "changed_files_exact"
     }
+  ],
+  "human_review_requirements": [
+    "authority: Verify the reasoning and final conclusion preserve the approved programme order. A self-authored decision log cannot authorize reordering; reject a correct label paired with approval of the conflicting implementation."
   ]
 }
