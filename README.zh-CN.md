@@ -191,7 +191,7 @@ npm run build
 
 `release-receipt.json` 将两个 ZIP 绑定到同一源码 commit、tree 与包 manifest；`SHA256SUMS` 覆盖两个 ZIP 和 receipt。摘要只能核对一致性，不能单独认证发布者身份，仍需检查 GitHub 来源。完整操作见 [Releasing](docs/releasing.md)。
 
-维护校验使用 Python 3.10+，依赖固定在 `requirements-dev.txt`：PyYAML 与 Pillow 均不进入插件 payload。校验覆盖实际 PNG 解码、被动 SVG XML 解析、包结构与发布回归、源码/生成物一致性及网站测试和构建。Field Lab subject pack 现有 11 个 case；新增两个复用与假绿灯 fixture 已有基线/修正对照测试，但这不等于执行过目标模型，更不能推导出模型效果提升。Live eval 仍需独立的计划和调用预算。
+维护校验使用 Python 3.10+，依赖固定在 `requirements-dev.txt`：PyYAML 与 Pillow 均不进入插件 payload。校验覆盖实际 PNG 解码、被动 SVG XML 解析、包结构与发布回归、源码/生成物一致性及网站测试和构建。当前 source pack 现有 13 个 case：0.6.1 release 已包含 11 个，未发布的 source candidate 新增显式 tranche planning 与跨进程 complete-delivery controls。全部 13 个 case 都有基线/修正对照检查，但这既不等于执行过目标模型，也不能关闭已声明的 semantic review requirements。Field Lab 0.2 的 public `review` CLI 尚无法记录 Servotab acceptance 要求的 exact per-requirement outcomes，因此需要 human review 的 cases 仍停在该 companion API gate。Live eval 仍需独立的计划和调用预算。
 
 ## Feedback
 

@@ -14,10 +14,18 @@ acceptance check, not a replacement for Field Lab's execution or permissions.
 
 Use the Servotab revision whose case and prompt produced the attempt. Inspect the
 entire final response, diff and required artifacts, not just labels or the expected
-answer. Record an independent review through Field Lab's review workflow. Its
-`requirement_outcomes` must use each exact requirement string as a key, with values
-`supported`, `not-supported` or `inconclusive`. Give the material reasoning in
-`rationale`; a correct label with contradictory reasoning must be rejected.
+answer. A compatible independent Field Lab review record must use each exact
+requirement string as a `requirement_outcomes` key, with values `supported`,
+`not-supported` or `inconclusive`. Give the material reasoning in `rationale`; a
+correct label with contradictory reasoning must be rejected.
+
+Field Lab 0.2 source revision `d9f717a` defines that review field and its internal
+writer accepts a mapping, but the public `fieldlab review` CLI exposes no input for
+it and therefore writes an empty object. Until the companion adds a supported
+public input for exact per-requirement outcomes, a human-required attempt can be
+inspected and reported as `needs-review`, but it cannot reach `accepted` through
+the public workflow. Do not hand-edit or manufacture a review to cross that gate,
+and do not weaken the exact mapping requirement.
 
 ```bash
 python3 scripts/check_behavior_acceptance.py /path/to/attempt/receipt.json

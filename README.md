@@ -157,7 +157,14 @@ fieldlab selftest fieldlab-pack.json
 fieldlab list fieldlab-pack.json
 ```
 
-The source pack now contains eleven cases. The two new reuse and false-green fixtures have deterministic baseline/expected-overlay checks; those checks do not execute a target model. Any live synthetic attempt requires its own plan and explicit invocation budget.
+The current source pack contains thirteen cases. Eleven shipped with the 0.6.1
+release; the unreleased source candidate adds explicit tranche-planning and
+cross-process complete-delivery controls. All thirteen have deterministic
+baseline/expected-overlay checks, but those checks do not execute a target model
+or close declared semantic-review requirements. Field Lab 0.2's public `review`
+CLI cannot yet record the exact per-requirement outcomes that Servotab acceptance
+requires, so human-required cases remain behind that companion API gate. Any live
+synthetic attempt requires its own plan and explicit invocation budget.
 
 ## Release artifacts
 
