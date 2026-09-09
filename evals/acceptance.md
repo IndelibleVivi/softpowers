@@ -21,8 +21,8 @@ requirement string as a `requirement_outcomes` key, with values `supported`,
 correct label with contradictory reasoning must be rejected.
 
 Field Lab baseline source `d9f717a` defines that review field and its internal writer
-accepts a mapping, but its public CLI exposes no input for it. The separately
-inspected source candidate `57eb9ac` adds the supported public input:
+accepts a mapping, but its public CLI exposes no input for it. Feature commit
+`57eb9ac`, merged into Field Lab main at `b87b14b`, adds the supported public input:
 
 ```bash
 fieldlab review /path/to/study/fieldlab.json \
@@ -34,12 +34,12 @@ fieldlab review /path/to/study/fieldlab.json \
   --requirement-outcomes /path/to/requirement-outcomes.json
 ```
 
-Against that candidate CLI, synthetic receipts for all nine current
+Against that merged-source CLI, synthetic receipts for all nine current
 human-required cases produced review records accepted by the Servotab checker,
 with zero target-agent invocations. This proves producer-consumer contract
-compatibility only: the candidate is not merged, released, installed, or
-activated, and synthetic outcomes are not actual independent human review. Do not hand-edit or
-manufacture a review to cross the gate, and do not weaken the exact mapping
+compatibility only: the source is merged but not released, installed or activated,
+and synthetic outcomes are not actual independent human review. Do not hand-edit
+or manufacture a review to cross the gate, and do not weaken the exact mapping
 requirement.
 
 ```bash

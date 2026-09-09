@@ -22,18 +22,17 @@ The published 0.6.1 Field Lab subject pack contains eleven cases: the nine earli
 cases plus existing-normalizer reuse and misleading-green-test controls. The
 current unreleased source candidate contains thirteen cases, adding explicit
 tranche-planning and cross-process complete-delivery controls. Its deterministic
-fixture checks pass. Field Lab branch
-`codex/requirement-outcomes-cli-20260910` at `57eb9ac` adds public
-`fieldlab review --requirement-outcomes` input with exact-key and bounded-file
-validation. Synthetic receipts for all nine current human-required cases produced
-CLI review records accepted by the Servotab checker with zero target-agent
-invocations. The companion commit is pushed but not merged, released, installed,
-or activated; this contract check is not evidence that the semantic requirements
-passed. Standalone Field Lab validation remains optional. No live target-model
-evaluation was run for this release or the current candidate; the named-host
-installation and discovery
-receipt below is a separate runtime-identity observation, not a model-effectiveness
-claim.
+fixture checks pass. Field Lab feature commit `57eb9ac` is merged into main at
+`b87b14b`; the main push validate run `34393492283` completed successfully. That
+source adds public `fieldlab review --requirement-outcomes` input with exact-key
+and bounded-file validation. Synthetic receipts for all nine current
+human-required cases produced CLI review records accepted by the Servotab checker
+with zero target-agent invocations. The compatible companion source is merged but
+not released, installed or activated; this contract check is not evidence that
+the semantic requirements passed. Standalone Field Lab validation remains optional. No live
+target-model evaluation was run for this release or the current candidate; the
+named-host installation and discovery receipt below is a separate runtime-identity
+observation, not a model-effectiveness claim.
 
 ## Historical host and directory observations
 

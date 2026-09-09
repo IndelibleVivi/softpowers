@@ -162,10 +162,11 @@ release; the unreleased source candidate adds explicit tranche-planning and
 cross-process complete-delivery controls. All thirteen have deterministic
 baseline/expected-overlay checks, but those checks do not execute a target model
 or close declared semantic-review requirements. The inspected Field Lab 0.2
-baseline source at `d9f717a` lacks the required public input; a later compatible
-source candidate exposes `fieldlab review --requirement-outcomes`, and the nine current
+baseline source at `d9f717a` lacks the required public input; Field Lab main at
+`b87b14b` now exposes `fieldlab review --requirement-outcomes`. The nine current
 human-required cases pass Servotab's synthetic producer-consumer contract check
 through that CLI. This does not constitute human review or a live model result.
+The compatible source is merged but not thereby released, installed or activated.
 Any live synthetic attempt requires its own plan and explicit invocation budget.
 
 ## Release artifacts
