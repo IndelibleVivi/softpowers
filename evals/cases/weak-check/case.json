@@ -22,6 +22,17 @@
         "discover",
         "-v"
       ]
+    },
+    {
+      "argv": [
+        "python3",
+        "-I",
+        "-S",
+        "-B",
+        "-c",
+        "from pathlib import Path\nimport json, subprocess, sys, tempfile\ncandidate = {name: Path(name).read_bytes() for name in ('policy.py', 'test_policy.py')}\nrunner = \"\"\"import io, json, sys, unittest\nsys.path.insert(0, '.')\nsuite = unittest.defaultTestLoader.loadTestsFromName('test_policy')\nresult = unittest.TextTestRunner(stream=io.StringIO()).run(suite)\nprint(json.dumps(dict(tests=result.testsRun, failures=len(result.failures), errors=len(result.errors), skipped=len(result.skipped), expected_failures=len(result.expectedFailures), unexpected_successes=len(result.unexpectedSuccesses))))\n\"\"\"\ndef exercise(policy):\n    with tempfile.TemporaryDirectory(prefix='servotab-regression-') as raw:\n        work = Path(raw)\n        for name, content in candidate.items():\n            (work / name).write_bytes(content)\n        (work / 'policy.py').write_bytes(policy)\n        result = subprocess.run([sys.executable, '-I', '-S', '-B', '-c', runner], cwd=work, capture_output=True, text=True, timeout=10)\n        assert result.returncode == 0, 'candidate suite must execute normally'\n        report = json.loads(result.stdout)\n        assert report['tests'] > 0, 'empty suite is not regression evidence'\n        assert all(report[key] == 0 for key in ('errors', 'skipped', 'expected_failures', 'unexpected_successes')), 'import errors and skipped/expected failures are not regression evidence'\n        return report\ncurrent = exercise(candidate['policy.py'])\nassert current['failures'] == 0, 'candidate tests must pass the repaired behavior'\nold = exercise(b'def can_publish(approved, blocked):\\n    return approved\\n'.decode('unicode_escape').encode())\nassert old['tests'] == current['tests'] and old['failures'] > 0, 'candidate tests must reject the old blocked-item defect'\nprint('Candidate regression rejects old behavior; candidate workspace unchanged.')\n"
+      ],
+      "timeout_seconds": 30
     }
   ],
   "trace_assertions": {

@@ -57,5 +57,9 @@
       ],
       "type": "changed_files_exact"
     }
+  ],
+  "human_review_requirements": [
+    "boundary: Read TEST_TOPOLOGY.md and the final response. Contract tests, the local surrogate and named-host acceptance must remain distinct. Reject any claim that surrogate success proves production or that unobserved host acceptance is verified.",
+    "seam: Confirm that the local envelope surrogate exercises the real selector and the added regression; a duplicate implementation or self-confirming mock does not establish the host boundary."
   ]
 }

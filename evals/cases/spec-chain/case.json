@@ -51,5 +51,9 @@
       ],
       "type": "changed_files_exact"
     }
+  ],
+  "human_review_requirements": [
+    "coverage: Check each REQ-001 through REQ-005 against SPEC.md for an actual implementation slice, dependency and verification target. Merely listing IDs does not establish coverage; reject silently removed, narrowed or indefinitely deferred accepted requirements.",
+    "claim: Inspect both IMPLEMENTATION_PLAN.md and the final response. They must describe planning-only work and distinguish tranche completion from full-spec implementation; reject contradictory concluding claims."
   ]
 }

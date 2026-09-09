@@ -1,0 +1,98 @@
+# Behavior acceptance
+
+A Field Lab `pass` records the declared deterministic assertions. It does not close
+semantic requirements. Field Lab v0.2 (inspected baseline source `d9f717a`)
+records pending
+human review alongside that pass; its runner can then discard a passing workspace.
+The diff, final response and verification artifacts remain the review evidence.
+
+Servotab uses the existing v2 case `human_review_requirements` and separate,
+receipt-bound review record. No model runner, installer, grading service or schema
+fork is bundled. `scripts/check_behavior_acceptance.py` is a read-only subject
+acceptance check, not a replacement for Field Lab's execution or permissions.
+
+## Close a real attempt
+
+Use the Servotab revision whose case and prompt produced the attempt. Inspect the
+entire final response, diff and required artifacts, not just labels or the expected
+answer. A compatible independent Field Lab review record must use each exact
+requirement string as a `requirement_outcomes` key, with values `supported`,
+`not-supported` or `inconclusive`. Give the material reasoning in `rationale`; a
+correct label with contradictory reasoning must be rejected.
+
+Field Lab baseline source `d9f717a` defines that review field and its internal writer
+accepts a mapping, but its public CLI exposes no input for it. Feature commit
+`57eb9ac`, merged into Field Lab main at `b87b14b`, adds the supported public input:
+
+```bash
+fieldlab review /path/to/study/fieldlab.json \
+  --review-id independent-review \
+  --receipt /path/to/attempt/receipt.json \
+  --independence separate-agent \
+  --judgment supported \
+  --rationale "Bounded reasoning for the inspected attempt." \
+  --requirement-outcomes /path/to/requirement-outcomes.json
+```
+
+Against that merged-source CLI, synthetic receipts for all nine current
+human-required cases produced review records accepted by the Servotab checker,
+with zero target-agent invocations. This proves producer-consumer contract
+compatibility only: the source is merged but not released, installed or activated,
+and synthetic outcomes are not actual independent human review. Do not hand-edit
+or manufacture a review to cross the gate, and do not weaken the exact mapping
+requirement.
+
+```bash
+python3 scripts/check_behavior_acceptance.py /path/to/attempt/receipt.json
+python3 scripts/check_behavior_acceptance.py /path/to/attempt/receipt.json \
+  --review /path/to/separate-review.json
+```
+
+The command prints JSON and exits with:
+
+| Code | Status | Meaning |
+| --- | --- | --- |
+| 0 | `accepted` | Encoded deterministic evidence passed; required independent review supports every requirement. |
+| 1 | `rejected` | Attempt failed or a review requirement was rejected. |
+| 2 | `needs-review` | Required independent review is missing, self-reviewed or inconclusive. |
+| 3 | `invalid-evidence` | Stale/missing/tampered artifacts, mismatched case/prompt/review digest or malformed records. |
+
+Purely deterministic cases do not acquire a mandatory review. Any negative review
+outcome overrides a supported summary. The receipt stays immutable; the command
+writes nothing and never invokes a target model. Keep private attempts and reviews
+outside the public tree. Do not manufacture reviews to make CI green.
+
+Checksums bind the supplied evidence; they do not authenticate its author or prove
+its reasoning. Supply trusted Field Lab records and an actual independent review.
+The command checks current case/prompt identity, not the entire current plugin,
+fixture tree or host. Those identities remain in Field Lab's pinned run inputs.
+An accepted result supports that attempt only, not exclusive causation, deployment,
+owner acceptance, superior performance or longitudinal reliability.
+
+## Adversarial controls
+
+`adversarial-controls.json` preserves five deliberately wrong output deltas from
+the audit. They are test material, never instructions or genuine model outcomes.
+Apply each to its case's expected overlay in a disposable fixture copy.
+
+- `weak-check`: comment-only tests must fail the candidate regression check. The
+  check runs the candidate's own suite with repaired and known-bad policy in fresh
+  temporary directories; import errors, empty/skipped suites and unrelated failures
+  are not red evidence. It does not edit the candidate workspace.
+- `repeated-review-scope-accretion`: authority rewrites and unrelated new files must
+  fail the exact write-scope assertion. The prompt declares this bounded fixture's
+  two permitted outputs; existing restart tests already exercise its blocker.
+- `spec-chain`, `review-evidence-boundaries`, `missing-host-test-seam`: the deliberately
+  contradictory prose still passes structural checks. Without an independent
+  review it must remain `needs-review`. A reviewer should reject it for the stored
+  reason, not accept it for containing the required IDs or disposition labels.
+
+Ordinary CI replays all thirteen baseline/expected file-and-command oracles, the
+five adversarial deltas, alternate valid regressions, malformed/empty test suites,
+authority edits and incomplete CLI deliveries. Synthetic receipt tests exercise
+acceptance gating without representing an actual attempt or human review.
+
+No paid trial was run for these changes. Native plugin activation, explicit leaf
+selection, method overhead and comparative agent outcomes still require authorized
+host/model observations. Reference reads and command ceilings are diagnostics;
+correctness, complete requested behavior and permission compliance come first.

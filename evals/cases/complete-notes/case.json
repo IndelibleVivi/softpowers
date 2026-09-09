@@ -1,0 +1,50 @@
+{
+  "schema_version": 2,
+  "case_id": "complete-notes",
+  "description": "An implementation request must deliver the full CLI, persisted consumer behavior and migration rather than a plan or first slice.",
+  "activation": "implicit",
+  "prompt_file": "prompt.md",
+  "sandbox": "workspace-write",
+  "timeout_seconds": 600,
+  "command_assertions": [
+    {
+      "argv": [
+        "python3",
+        "-I",
+        "-S",
+        "-B",
+        "-c",
+        "from pathlib import Path\nimport json, subprocess, sys, tempfile\ncode = Path('notes.py').read_bytes()\nwith tempfile.TemporaryDirectory(prefix='servotab-notes-') as raw:\n    root = Path(raw)\n    cli = root / 'notes.py'\n    cli.write_bytes(code)\n    def run(work, *args):\n        return subprocess.run([sys.executable, '-I', '-S', '-B', str(cli), *args], cwd=work, capture_output=True, text=True, timeout=5)\n    def listed(work, expected):\n        result = run(work, 'list')\n        assert result.returncode == 0 and result.stdout == expected, 'list must succeed with persisted ordered data'\n    def files(work):\n        return {p.name: p.read_bytes() for p in work.iterdir() if p.is_file()}\n    fresh = root / 'fresh'; fresh.mkdir()\n    listed(fresh, '')\n    assert run(fresh, 'add', 'alpha').returncode == 0\n    assert run(fresh, 'add', 'beta').returncode == 0\n    listed(fresh, 'alpha\\nbeta\\n')\n    assert [json.loads(s) for s in (fresh / 'notes.jsonl').read_text().splitlines()] == [{'text':'alpha'}, {'text':'beta'}]\n    before = files(fresh)\n    assert run(fresh, 'add', '  ').returncode != 0 and files(fresh) == before\n    migrated = root / 'migrated'; migrated.mkdir()\n    legacy = b'[\"first\", \"second\"]\\n'\n    (migrated / 'notes.json').write_bytes(legacy)\n    assert run(migrated, 'add', 'third').returncode == 0\n    listed(migrated, 'first\\nsecond\\nthird\\n')\n    assert (migrated / 'notes.json.bak').read_bytes() == legacy\n    assert run(migrated, 'add', 'fourth').returncode == 0\n    listed(migrated, 'first\\nsecond\\nthird\\nfourth\\n')\n    assert (migrated / 'notes.json.bak').read_bytes() == legacy\n    for i, text in enumerate(('{', '{}', '[\"ok\", null]', '[\" \"]')):\n        bad = root / ('bad-' + str(i)); bad.mkdir()\n        (bad / 'notes.json').write_text(text)\n        before = files(bad)\n        assert run(bad, 'add', 'x').returncode != 0 and files(bad) == before, 'invalid legacy must not mutate stores'\n    conflict = root / 'conflict'; conflict.mkdir()\n    (conflict / 'notes.json').write_bytes(legacy)\n    (conflict / 'notes.json.bak').write_bytes(b'previous rollback')\n    before = files(conflict)\n    assert run(conflict, 'add', 'x').returncode != 0 and files(conflict) == before\nprint('producer, consumer, persistence, migration, rollback and rejection paths verified')\n"
+      ],
+      "timeout_seconds": 90
+    },
+    {
+      "argv": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-v"
+      ],
+      "timeout_seconds": 60
+    }
+  ],
+  "workspace_assertions": [
+    {
+      "type": "changed_files_exact",
+      "paths": [
+        "notes.py",
+        "test_notes.py"
+      ]
+    }
+  ],
+  "trace_assertions": {
+    "max_command_executions": 20,
+    "max_plan_updates": 2,
+    "max_subagent_events": 0
+  },
+  "human_review_requirements": [
+    "coverage: Inspect test_notes.py for substantive add/list, blank input, migration, rollback and malformed-data coverage. The independent command proves implementation behavior, not that the candidate wrote adequate regressions.",
+    "claim: Compare the final response with the actual changed code and command evidence. Reject a plan-only or first-slice delivery and claims of concurrency, crash consistency, deployment or owner acceptance not exercised here."
+  ]
+}

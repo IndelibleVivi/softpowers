@@ -26,10 +26,10 @@ Inspect enough code to name realistic touchpoints. Do not invent exact file path
 When an approved specification governs the work:
 
 - Treat it as the authority for scope, settled semantics, and acceptance.
-- Make the implementation plan cover the complete accepted specification, even when execution will span phases, PRs, or sessions.
+- When planning the full specification, cover its complete accepted scope, even when execution will span phases, PRs, or sessions.
 - Keep the current phase or tranche inside that full plan. Never present a partial tranche as the implementation plan for the specification.
-- Map every normative requirement to a slice and verification outcome, and state every proposed scope or order delta explicitly.
-- If the user explicitly requests only a tranche plan, label it `Execution Tranche` and link it to the existing complete plan. If no complete plan exists, establish it first.
+- In that full plan, map every normative requirement to a slice and verification outcome, and state every proposed scope or order delta explicitly.
+- If the user explicitly requests only a tranche plan, label it `Execution Tranche` and link the applicable specification requirements, dependencies, and existing complete plan. If no complete plan exists, note that absence without creating one by default. Resolve only missing dependencies that block safe planning of this tranche; preserve other requirements without replanning or claiming to deliver them.
 
 Use compact specification IDs or heading anchors rather than repeating the source document.
 
@@ -45,7 +45,7 @@ Use compact specification IDs or heading anchors rather than repeating the sourc
 
 Use for a moderate change that can be completed in the current session.
 
-Provide three to seven coherent steps. Each step should produce a meaningful, testable increment.
+Use as few coherent steps as the dependencies need. Each step should produce a meaningful, testable increment.
 
 ### Durable plan
 
@@ -112,7 +112,7 @@ Review the plan once against the requirements:
 
 - Every acceptance criterion maps to a task or verification step.
 - The plan covers the complete requested outcome rather than a scaffold or convenient subset.
-- Every accepted specification requirement remains visible in the complete plan, including work scheduled after the current tranche.
+- A full-spec plan keeps every accepted requirement visible. An explicitly requested tranche maps its applicable requirements and prerequisites, linking other accepted scope without replanning it.
 - Dependencies are ordered correctly.
 - Any narrowing, removal, deferral outside the plan, or reordering is an explicit specification delta rather than an implementation convenience.
 - No hidden migration or compatibility issue is ignored.
