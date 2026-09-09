@@ -1,7 +1,8 @@
 # Behavior acceptance
 
 A Field Lab `pass` records the declared deterministic assertions. It does not close
-semantic requirements. Field Lab v0.2 (inspected source `d9f717a`) records pending
+semantic requirements. Field Lab v0.2 (inspected baseline source `d9f717a`)
+records pending
 human review alongside that pass; its runner can then discard a passing workspace.
 The diff, final response and verification artifacts remain the review evidence.
 
@@ -19,13 +20,27 @@ requirement string as a `requirement_outcomes` key, with values `supported`,
 `not-supported` or `inconclusive`. Give the material reasoning in `rationale`; a
 correct label with contradictory reasoning must be rejected.
 
-Field Lab 0.2 source revision `d9f717a` defines that review field and its internal
-writer accepts a mapping, but the public `fieldlab review` CLI exposes no input for
-it and therefore writes an empty object. Until the companion adds a supported
-public input for exact per-requirement outcomes, a human-required attempt can be
-inspected and reported as `needs-review`, but it cannot reach `accepted` through
-the public workflow. Do not hand-edit or manufacture a review to cross that gate,
-and do not weaken the exact mapping requirement.
+Field Lab baseline source `d9f717a` defines that review field and its internal writer
+accepts a mapping, but its public CLI exposes no input for it. The separately
+inspected source candidate `57eb9ac` adds the supported public input:
+
+```bash
+fieldlab review /path/to/study/fieldlab.json \
+  --review-id independent-review \
+  --receipt /path/to/attempt/receipt.json \
+  --independence separate-agent \
+  --judgment supported \
+  --rationale "Bounded reasoning for the inspected attempt." \
+  --requirement-outcomes /path/to/requirement-outcomes.json
+```
+
+Against that candidate CLI, synthetic receipts for all nine current
+human-required cases produced review records accepted by the Servotab checker,
+with zero target-agent invocations. This proves producer-consumer contract
+compatibility only: the candidate is not merged, released, installed, or
+activated, and synthetic outcomes are not actual independent human review. Do not hand-edit or
+manufacture a review to cross the gate, and do not weaken the exact mapping
+requirement.
 
 ```bash
 python3 scripts/check_behavior_acceptance.py /path/to/attempt/receipt.json

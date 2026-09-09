@@ -161,10 +161,12 @@ The current source pack contains thirteen cases. Eleven shipped with the 0.6.1
 release; the unreleased source candidate adds explicit tranche-planning and
 cross-process complete-delivery controls. All thirteen have deterministic
 baseline/expected-overlay checks, but those checks do not execute a target model
-or close declared semantic-review requirements. Field Lab 0.2's public `review`
-CLI cannot yet record the exact per-requirement outcomes that Servotab acceptance
-requires, so human-required cases remain behind that companion API gate. Any live
-synthetic attempt requires its own plan and explicit invocation budget.
+or close declared semantic-review requirements. The inspected Field Lab 0.2
+baseline source at `d9f717a` lacks the required public input; a later compatible
+source candidate exposes `fieldlab review --requirement-outcomes`, and the nine current
+human-required cases pass Servotab's synthetic producer-consumer contract check
+through that CLI. This does not constitute human review or a live model result.
+Any live synthetic attempt requires its own plan and explicit invocation budget.
 
 ## Release artifacts
 
